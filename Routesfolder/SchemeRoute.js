@@ -163,4 +163,25 @@ console.log("Data saved successfully");
     res.status(200).json({ message: 'Data saved successfully' });   
 })
 // Export the router
+
+
+
+schemeRouter.post('/idReqGetScheme', async (req, res) => {
+  try {
+    const { id } = req.body;
+    console.log('Received ID:', id);
+
+    const scheme = await SchemaByIdModel.find({'ID':id}); // Replace with your actual DB model
+console.log('Scheme found:', scheme);
+
+    if (!scheme) {
+      return res.status(404).json({ message: 'Scheme not found' });
+    }
+
+    res.json(scheme); // Send scheme back to frontend
+  } catch (error) {
+    console.error('Error in idReqGetScheme:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 export default schemeRouter;
