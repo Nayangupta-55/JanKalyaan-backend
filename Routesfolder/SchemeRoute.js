@@ -4,6 +4,16 @@ import SchemaByIdModel from '../models/SchemaById.js'; // Model for detailed sch
 
 const schemeRouter = express.Router();
 
+// ✅ NEW: GET base schemes (for category cards)
+schemeRouter.get('/getCategories', async (req, res) => {
+  try {
+    const baseSchemes = await schemeModel.find(); // contains Scheme and Icon
+    res.status(200).json(baseSchemes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // ✅ GET all detailed schemes (used in search engine)
 schemeRouter.get('/getData', async (req, res) => {
   try {
